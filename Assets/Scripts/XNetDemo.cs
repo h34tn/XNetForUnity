@@ -13,6 +13,7 @@ public class XNetDemo : MonoBehaviour
 
     private void Awake()
     {
+        //Application.targetFrameRate = 30;
         _xnetAgent = new XNetAgent();
         _xnetAgent.connectEvent += _xnetAgent_connectEvent;
         _xnetAgent.disconnectEvent += _xnetAgent_disconnectEvent;
