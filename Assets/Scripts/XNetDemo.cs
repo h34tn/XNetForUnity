@@ -28,7 +28,7 @@ public class XNetDemo : MonoBehaviour
 
     private void _xnetAgent_errorEvent(short code)
     {
-        Debug.LogError("Error : " + code);
+        outputText.text = "Error : " + code;
     }
 
     private void _xnetAgent_recvedDataEvent(byte[] data, uint len)
@@ -38,12 +38,12 @@ public class XNetDemo : MonoBehaviour
 
     private void _xnetAgent_disconnectEvent()
     {
-        Debug.Log("Disconnect Event");
+        outputText.text = "Disconnect Event";
     }
 
     private void _xnetAgent_connectEvent()
     {
-        Debug.Log("Connect Event");
+        outputText.text = "Connect Event";
     }
 
     private void OnDestroy()
