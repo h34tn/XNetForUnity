@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 // Using IntPtr
 using System;
 // Using DllImport
@@ -90,6 +90,7 @@ namespace JoyZion.Network
                 return -1;
         }
 
+        [MonoPInvokeCallback(typeof(XConNotifyDelegate))]
         private static void OnXConNotify(IntPtr obj, Byte type, Int16 code)
         {
             if (_agents.ContainsKey(obj))
@@ -109,13 +110,13 @@ namespace JoyZion.Network
                         break;
                     case CallbackType.OnReceive:
                         IntPtr ptr = IntPtr.Zero;
-                        UInt32 len = 0;
-                        while(Receive(_xconn, out ptr, out len) > 0)
+                        UInt32 len = RECV_BUF_SIZE;
+                        int ret = 0;
+                        while((ret = Receive(_xconn, out ptr, out len)) > 0)
                         {
                             Marshal.Copy(ptr, _recvBuf, 0, (int)len);
                             if (recvedDataEvent != null)
                                 recvedDataEvent(_recvBuf, len);
-                            //Log(string.Format("OnReceive[size = {0}] : {1}", len, Encoding.ASCII.GetString(arrBuf)));
                         }
                         break;
                     case CallbackType.OnDisconnect:
