@@ -1,0 +1,6 @@
+framework module libXNet {
+  umbrella header "libXNet.h"
+
+  export *
+  module * { export * }
+}
