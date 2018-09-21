@@ -15,8 +15,10 @@ namespace JoyZion.Network
     {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
         const string XNetModuleName = "libXNet";
-#else
-    const string XNetModuleName = "XNet";
+#elif UNITY_IOS
+        const string XNetModuleName = "__Internal";
+#else 
+        const string XNetModuleName = "XNet";
 #endif
         /**
          * Below are mapping to the dll export functions in the library
