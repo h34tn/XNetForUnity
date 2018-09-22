@@ -9,6 +9,23 @@ namespace JoyZion.Network
     public delegate void RecvedDataHandler(byte[] data, UInt32 len);
     public delegate void ErrorHandler(Int16 code);
 
+    enum XNetError
+    {
+        ERR_NONE = 0,
+        ERR_CONNECT_FAIL = -1,
+        ERR_RCV_FAIL = -2,
+        ERR_SEND_FAIL = -3,
+        ERR_RCVBUF_READ_FAIL = -4,
+        ERR_RCVBUF_WRITE_FAIL = -5,
+        ERR_SENDBUF_READ_FAIL = -6,
+        ERR_SENDBUF_WRITE_FAIL = -7,
+        ERR_PEER_CLOSED = -8,
+        ERR_NO_CONNECTION = -9,
+        ERR_CREAT_THREAD_FAIL = -10,
+        ERR_INVALID_PARAM = -11,
+        ERR_CONNECT_EXIST = -12
+    };
+
     public class XNetAgent
     {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
