@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-// Using IntPtr
+using System.Collections.Generic; // Using IntPtr
 using System;
-// Using DllImport
-using System.Runtime.InteropServices;
+using System.Runtime.InteropServices; // Using DllImport
 
 namespace JoyZion.Network
 {
@@ -31,7 +29,7 @@ namespace JoyZion.Network
         private static extern void DestroyConnection(IntPtr obj);
 
         [DllImport(XNetModuleName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Open(IntPtr obj, string hostName, UInt16 port);
+        private static extern int Open(IntPtr obj, string hostName, UInt16 port, Int32 timeout);
 
         [DllImport(XNetModuleName, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Reopen(IntPtr obj);
@@ -84,7 +82,7 @@ namespace JoyZion.Network
             {
                 _agents[_xconn] = this;
                 SetXConNotifyCallback(_xconn, new XConNotifyDelegate(OnXConNotify));
-                return Open(_xconn, host, port);
+                return Open(_xconn, host, port, 5000);
             }
             else
                 return -1;
@@ -111,8 +109,7 @@ namespace JoyZion.Network
                     case CallbackType.OnReceive:
                         IntPtr ptr = IntPtr.Zero;
                         UInt32 len = RECV_BUF_SIZE;
-                        int ret = 0;
-                        while((ret = Receive(_xconn, out ptr, out len)) > 0)
+                        while(Receive(_xconn, out ptr, out len) > 0)
                         {
                             Marshal.Copy(ptr, _recvBuf, 0, (int)len);
                             if (recvedDataEvent != null)
